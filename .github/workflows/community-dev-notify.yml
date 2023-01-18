@@ -1,12 +1,14 @@
-name: Is Organization Member Example
+name: com-dev-notify
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened]
+  discussion:
+    types: [created]
 
 jobs:
-  welcome:
-    name: Welcome
+  com-dev-notify:
+    name: Notify Catalyst of community activity
     runs-on: ubuntu-latest
     steps:
       - name: Check if organization member
