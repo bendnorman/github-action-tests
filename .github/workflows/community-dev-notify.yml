@@ -9,5 +9,15 @@ jobs:
     name: Notify the community-dev channel when a non catalyst user creates an issues
     runs-on: ubuntu-latest
     steps:
-      - name: Use pudl-deployment-dev vm and dev branch if running on a schedule
-        run: echo ${{ github.event.issue.user.url }}
+      - name: Check if organization member
+        id: is_organization_member
+        if: github.event.action == 'opened'
+        uses: jamessingleton/is-organization-member@v1
+        with:
+          organization: catalyst-cooperative
+          username: ${{ github.event.issue.user.login }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Comment
+        if: |
+          steps.is_organization_member.outputs.result == false
+        run: echo User Does Not Belong to testorg
