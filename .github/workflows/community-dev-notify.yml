@@ -9,6 +9,7 @@ on:
 env:
   username: ${{ github.event.issue.user.login }}
   url: ${{ github.event.issue.html_url }}
+  org: catalyst-cooperative
 
 jobs:
   com-dev-notify:
@@ -25,7 +26,7 @@ jobs:
         id: is_organization_member
         uses: JamesSingleton/is-organization-member@1.0.0
         with:
-          organization: test-org
+          organization: ${{ env.org }}
           username: ${{ env.username }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
