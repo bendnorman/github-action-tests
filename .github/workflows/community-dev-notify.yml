@@ -2,7 +2,7 @@ name: Is Organization Member Example
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened, edited]
 
 jobs:
   welcome:
