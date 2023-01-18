@@ -6,26 +6,25 @@ on:
   discussion:
     types: [created, edited]
 
+env:
+  username: ${{ github.event.discussion.user.login }}
+
 jobs:
   com-dev-notify:
     name: Notify Catalyst of community activity
     runs-on: ubuntu-latest
     steps:
-      - name: Check if organization member if discussion
+      - name: Use pudl-deployment-dev vm and dev branch if running on a schedule
         if: ${{ (github.event_name == 'discussion') }}
-        id: is_organization_member_discussion
-        uses: JamesSingleton/is-organization-member@1.0.0
-        with:
-          organization: catalyst-cooperative
-          username: ${{ github.event.discussion.user.login }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "username=${{ github.event.discussion.user.login }}" >> $GITHUB_ENV
 
-      - name: Check if organization member if issue
-        id: is_organization_member_issue
+      - name: Check if organization member
+        id: is_organization_member
         uses: JamesSingleton/is-organization-member@1.0.0
         with:
           organization: catalyst-cooperative
-          username: ${{ github.event.issue.user.login }}
+          username: ${{ env.username }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: echo
