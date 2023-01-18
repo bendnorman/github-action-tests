@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Use pudl-deployment-dev vm and dev branch if running on a schedule
-        run: echo ${{ github.event.issue.org.id }}
+        run: echo ${{ github.event.issue.user.url }}
