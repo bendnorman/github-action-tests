@@ -41,13 +41,12 @@ jobs:
           # For posting a simple plain text message
           payload: |
             {
-              "text": "[${{ env.username }}](https://github.com/${{ env.username }}) created ${{ env.url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "[${{ env.username }}](https://github.com/${{ env.username }}) created ${{ env.url }}"
+                    "text": "<https://github.com/${{ env.username }}|${{ env.username }}> created ${{ env.url }}"
                   }
                 }
               ]
