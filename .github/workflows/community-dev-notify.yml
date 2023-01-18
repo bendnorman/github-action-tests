@@ -11,6 +11,8 @@ jobs:
     name: Notify Catalyst of community activity
     runs-on: ubuntu-latest
     steps:
+      - name: echo events
+        run: echo ${{ github.event.discussion.sender }}; echo ${{ github.event.discussion }}; ${{ github.event.discussion.organization }}
       - name: Check if organization member
         id: is_organization_member
         uses: JamesSingleton/is-organization-member@1.0.0
