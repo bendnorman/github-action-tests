@@ -16,7 +16,7 @@ jobs:
         uses: JamesSingleton/is-organization-member@1.0.0
         with:
           organization: catalyst-cooperative
-          username: ${{ github.event.issue.actor.login }}
+          username: ${{ github.event.discussion.sender }}
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Comment
         if: |
