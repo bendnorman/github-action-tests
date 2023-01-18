@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Check if organization member if discussion
         if: ${{ (github.event_name == 'discussion') }}
-        id: is_organization_member
+        id: is_organization_member_discussion
         uses: JamesSingleton/is-organization-member@1.0.0
         with:
           organization: catalyst-cooperative
@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if organization member if issue
-        id: is_organization_member
+        id: is_organization_member_issue
         uses: JamesSingleton/is-organization-member@1.0.0
         with:
           organization: catalyst-cooperative
