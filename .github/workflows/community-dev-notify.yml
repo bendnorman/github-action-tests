@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo test
-        run: echo ${{ github.event.${{ github.event_name }}.user.login}}
+        run: echo ${{ format(github.event.{0}.user.login, github.event_name) }}
       - name: Get username if a discussion was created
         if: ${{ (github.event_name == 'discussion') }}
         run: |
