@@ -40,6 +40,6 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: "community-dev"
           # For posting a simple plain text message
-          slack-message: "${{ github.event.issue.user.login }}"
+          slack-message: "URL: ${{ github.event.issue }}"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
