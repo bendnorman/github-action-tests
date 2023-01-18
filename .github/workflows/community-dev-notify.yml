@@ -39,6 +39,18 @@ jobs:
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: "community-dev"
           # For posting a simple plain text message
-          slack-message: "[${{ env.username }}](https://github.com/${{ env.username }}) created ${{ env.url }}"
+          payload: |
+            {
+              "text": "[${{ env.username }}](https://github.com/${{ env.username }}) created ${{ env.url }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "[${{ env.username }}](https://github.com/${{ env.username }}) created ${{ env.url }}"
+                  }
+                }
+              ]
+            }
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
