@@ -21,7 +21,6 @@ jobs:
         run: |
           echo "username=${{ github.event.discussion.user.login }}" >> $GITHUB_ENV
           echo "url=${{ github.event.discussion.html_url }}" >> $GITHUB_ENV
-
       - name: Check if organization member
         id: is_organization_member
         uses: JamesSingleton/is-organization-member@1.0.0
@@ -29,9 +28,6 @@ jobs:
           organization: ${{ env.org }}
           username: ${{ env.username }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Echo is_organization_member
-        run: echo ${{ steps.is_organization_member.outputs.result }}
 
       - name: Post to a Slack channel user isn't a part of Catalyst
         if: ${{ !steps.is_organization_member.outputs.result }}
@@ -42,7 +38,7 @@ jobs:
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           # You can pass in multiple channels to post to by providing a comma-delimited list of channel IDs.
           channel-id: "community-dev"
-          # For posting a simple plain text message
+          # For posting a markdown message
           payload: |
             {
               "blocks": [
