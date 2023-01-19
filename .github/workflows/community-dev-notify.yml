@@ -33,7 +33,7 @@ jobs:
         run: echo ${{ steps.is_organization_member.outputs.result }}; echo ${{ !steps.is_organization_member.outputs.result }}
 
       - name: Post to a Slack channel user isn't a part of Catalyst
-        if: ${{ !steps.is_organization_member.outputs.result }}
+        if: ${{ steps.is_organization_member.outputs.result }} == 'false'
         id: slack
         uses: slackapi/slack-github-action@v1.23.0
         with:
