@@ -1,0 +1,14 @@
+name: build-deploy-pudl
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v**"
+
+jobs:
+  print-env-vars:
+    name: Print some envs vars
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get username if a discussion was created
+        run: echo ${{ github.event_name }}
