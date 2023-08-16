@@ -10,5 +10,8 @@ jobs:
     name: Print some envs vars
     runs-on: ubuntu-latest
     steps:
-      - name: Get username if a discussion was created
-        run: echo ${{ github.event_name }} && echo ${{ env.GITHUB_REF }}
+      - name: event_name
+        run: echo ${{ github.event_name }}
+
+      - name: GITHUB_REF
+        run: echo ${{ env.GITHUB_REF }}
