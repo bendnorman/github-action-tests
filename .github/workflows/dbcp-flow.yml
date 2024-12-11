@@ -1,0 +1,42 @@
+name: Multi-Job Workflow
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+  schedule:
+    - cron: "0 3 * * *" # Adjust the schedule
+  workflow_dispatch:
+
+jobs:
+  archive:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Archive data
+        run: |
+          echo "Archiving data..."
+
+  etl:
+      needs: archive  # Ensure archive job finishes first
+      runs-on: ubuntu-latest
+      strategy:
+        matrix:
+          branch: ${{ github.event_name == 'schedule' ? fromJson('["main", "dev"]') : fromJson('["single"]') }}
+      steps:
+        - name: Set branch dynamically
+          id: set-branch
+          run: |
+            if [ "${{ github.event_name }}" == "push" ]; then
+              echo "branch=${{ github.ref_name }}" >> $GITHUB_ENV
+            else
+              echo "branch=${{ matrix.branch }}" >> $GITHUB_ENV
+
+        - name: Checkout code
+          uses: actions/checkout@v3
+          with:
+            ref: ${{ env.branch }}
