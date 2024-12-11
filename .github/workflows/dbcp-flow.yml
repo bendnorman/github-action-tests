@@ -50,7 +50,7 @@ jobs:
       matrix: ${{ fromJSON(needs.matrix_prep.outputs.matrix) }}
     steps:
       - name: print matrix
-        run: echo ${{ matrix.project }} ${{ matrix.config }}
+        run: echo ${{ matrix.branch }}
       # - name: Set branch dynamically
       #   id: set-branch
       #   run: |
