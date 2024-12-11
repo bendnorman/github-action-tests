@@ -22,7 +22,6 @@ jobs:
           echo "Archiving data..."
 
   matrix_prep:
-    needs: archive # Ensure archive job finishes first
     runs-on: ubuntu-latest
     steps:
       - name: Set branch dynamically
