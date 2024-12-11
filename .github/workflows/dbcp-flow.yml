@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ always() }}
     strategy:
-      matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.matrix_prep.outputs.matrix) }}
     steps:
       - name: print matrix
         run: echo ${{ matrix.project }} ${{ matrix.config }}
