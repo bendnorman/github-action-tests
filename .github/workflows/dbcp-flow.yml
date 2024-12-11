@@ -45,6 +45,7 @@ jobs:
   etl:
     needs: matrix_prep # Ensure archive job finishes first
     runs-on: ubuntu-latest
+    if: ${{ always() }}
     strategy:
       matrix: ${{ fromJSON(needs.matrix_prep.outputs.matrix) }}
     steps:
