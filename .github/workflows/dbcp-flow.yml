@@ -35,6 +35,9 @@ jobs:
             echo "matrix='["main", "dev"]'" >> $GITHUB_OUTPUT
           fi
 
+      - name: echo matrix
+        run: echo ${{ steps.set-branch.outputs.matrix }}
+
   etl:
     needs: matrix_prep # Ensure archive job finishes first
     runs-on: ubuntu-latest
