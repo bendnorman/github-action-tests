@@ -25,6 +25,8 @@ jobs:
     needs: archive # Ensure archive job finishes first
     if: ${{ always() }}
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       # - name: Set branch dynamically
       #   id: set-branch
@@ -34,11 +36,11 @@ jobs:
       #     else
       #       echo "matrix='["main", "dev"]'" >> $GITHUB_OUTPUT
       #     fi
-      - id: set-branch
+      - id: set-matrix
         run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
 
       - name: echo matrix
-        run: echo ${{ steps.set-branch.outputs.matrix }}
+        run: echo ${{ steps.set-matrix.outputs.matrix }}
 
   etl:
     needs: matrix_prep # Ensure archive job finishes first
