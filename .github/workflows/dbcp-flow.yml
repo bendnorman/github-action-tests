@@ -26,14 +26,16 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - name: Set branch dynamically
-        id: set-branch
-        run: |
-          if [ "${{ github.event_name }}" == "push" ]; then
-            echo "matrix=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          else
-            echo "matrix='["main", "dev"]'" >> $GITHUB_OUTPUT
-          fi
+      # - name: Set branch dynamically
+      #   id: set-branch
+      #   run: |
+      #     if [ "${{ github.event_name }}" == "push" ]; then
+      #       echo "matrix=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "matrix='["main", "dev"]'" >> $GITHUB_OUTPUT
+      #     fi
+      - id: set-branch
+        run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
 
       - name: echo matrix
         run: echo ${{ steps.set-branch.outputs.matrix }}
@@ -42,8 +44,7 @@ jobs:
     needs: matrix_prep # Ensure archive job finishes first
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        branch: ${{fromJson(needs.matrix_prep.outputs.matrix)}}
+      matrix: ${{ fromJson(needs.matrix_prep.outputs.matrix) }}
     steps:
       - name: Set branch dynamically
         id: set-branch
