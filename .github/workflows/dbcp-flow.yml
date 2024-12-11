@@ -32,7 +32,7 @@ jobs:
           if [ "${{ github.event_name }}" == "push" ]; then
             echo "matrix=${{ github.ref_name }}" >> $GITHUB_OUTPUT
           else
-            echo "matrix='["main", "dev"]' >> $GITHUB_OUTPUT
+            echo "matrix='["main", "dev"]'" >> $GITHUB_OUTPUT
 
   etl:
     needs: matrix_prep # Ensure archive job finishes first
