@@ -21,6 +21,10 @@ jobs:
         run: |
           echo "Archiving data..."
 
+      # add a step that fails
+      - name: Fail
+        run: exit 1
+
   matrix_prep:
     needs: archive # Ensure archive job finishes first
     if: ${{ always() }} && ( ${{ needs.archive.result == 'success' }} || ${{ needs.archive.result == 'skipped' }} )
