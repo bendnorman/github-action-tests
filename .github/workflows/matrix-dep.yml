@@ -11,6 +11,7 @@ jobs:
         run: echo "matrix={\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}" >> $GITHUB_OUTPUT
   job2:
     needs: job1
+    if: ${{ needs.job1.result == 'success' }} || ${{ needs.job1.result == 'skipped' }}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
