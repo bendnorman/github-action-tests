@@ -23,8 +23,8 @@ jobs:
 
   matrix_prep:
     needs: archive # Ensure archive job finishes first
-    if: ${{ needs.archive.result == 'success' }} || ${{ needs.archive.result == 'skipped' }}
-    # if: ${{ always() }}
+    # if: ${{ needs.archive.result == 'success' }} || ${{ needs.archive.result == 'skipped' }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -48,7 +48,7 @@ jobs:
   etl:
     needs: matrix_prep # Ensure archive job finishes first
     runs-on: ubuntu-latest
-    if: needs.matrix_prep.outcome == 'success'
+    if: ${{ needs.matrix_prep.result == 'success' }}
     strategy:
       matrix: ${{ fromJSON(needs.matrix_prep.outputs.matrix) }}
     steps:
