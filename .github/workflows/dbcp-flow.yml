@@ -48,9 +48,9 @@ jobs:
       - name: echo matrix
         run: echo ${{ steps.set-matrix.outputs.matrix }}
 
-      # add a step that fails
-      - name: Fail
-        run: exit 1
+      # # add a step that fails
+      # - name: Fail
+      #   run: exit 1
 
   etl:
     needs: matrix_prep # Ensure archive job finishes first
