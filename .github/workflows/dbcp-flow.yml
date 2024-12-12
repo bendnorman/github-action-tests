@@ -23,11 +23,14 @@ jobs:
 
   matrix_prep:
     needs: archive # Ensure archive job finishes first
-    if: needs.archive.outcome == 'success' || needs.archive.outcome == 'skipped'
+    # if: needs.archive.outcome == 'success' || needs.archive.outcome == 'skipped'
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - run: echo ${{ needs.archive.outcome }}
+
       - name: Set branch dynamically
         id: set-matrix
         run: |

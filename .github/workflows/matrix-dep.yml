@@ -1,5 +1,5 @@
 name: build
-# on: push
+on: push
 jobs:
   job1:
     runs-on: ubuntu-latest
@@ -15,3 +15,4 @@ jobs:
       matrix: ${{ fromJSON(needs.job1.outputs.matrix) }}
     steps:
       - run: echo "Matrix - Project ${{ matrix.project }}, Config ${{ matrix.config }}"
+      - run: echo ${{ needs.job1.outcome }}
