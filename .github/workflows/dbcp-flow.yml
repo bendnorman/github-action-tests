@@ -23,8 +23,7 @@ jobs:
 
   matrix_prep:
     needs: archive # Ensure archive job finishes first
-    # if: ${{ needs.archive.result == 'success' }} || ${{ needs.archive.result == 'skipped' }}
-    if: ${{ always() }}
+    if: ${{ always() }} && ( ${{ needs.archive.result == 'success' }} || ${{ needs.archive.result == 'skipped' }} )
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
